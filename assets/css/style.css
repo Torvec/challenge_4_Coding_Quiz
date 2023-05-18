@@ -1,0 +1,46 @@
+:root {
+
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+
+}
+
+body {
+    background-color: azure;
+    font-family: sans-serif;
+}
+
+h1, h2, h3, h4, p {
+    padding-left: 1em;
+}
+
+#siteWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 100vh;
+}
+
+header, main, footer {
+    width: 60%;
+}
+
+header {
+    border: 20px solid rgb(0, 255, 229);
+    border-radius: 10px;
+}
+
+main {
+    border: 1px dashed black;
+}
+
+footer {
+    border: 20px solid rgb(0, 255, 229);
+    border-radius: 10px;
+}
