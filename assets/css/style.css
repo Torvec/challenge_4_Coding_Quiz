@@ -11,7 +11,7 @@ html {
 }
 
 body {
-    background-color: azure;
+    background-color: white;
     font-family: sans-serif;
     font-size: 62.5%;
 }
@@ -34,26 +34,60 @@ p, li {
     line-height: 1.5;
 }
 
+li {
+    list-style: none;
+}
+
+button {
+    padding: 1em;
+    border-radius: 6px;
+    border: 0;
+    margin-bottom: 1em;
+}
+
 #siteWrapper {
     width: 60%;
     max-width: 1200px;
     margin: 0 auto;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+#headerBoard {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.15rem;
+}
+
+#score, #timer, #hiScore {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+    background-color: lightgray;
+    border-radius: 10px;
+    font-family: 'Monda', sans-serif;
+}
+
+#scoreValue, #timerValue, #hiScoreValue {
+    font-family: 'Squada One', monospace;
+    font-size: 1.5rem;
 }
 
 header, main, footer {
     width: 100%;
     margin-bottom: 1rem;
-    padding: 1rem;
 }
 
 header {
-    
+
 }
 
 main {
-    border: 1px dashed black;
+    border-top: 2px solid lightgray;
+    border-bottom: 2px solid lightgray;
 }
 
-footer {
-
+footer p {
+    font-size: 1.0rem;
 }

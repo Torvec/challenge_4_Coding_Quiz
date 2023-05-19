@@ -4,23 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Monda:wght@400;700&family=Squada+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Coding Quiz by Edward Von Schondorf</title>
 </head>
 <body>
     <div id="siteWrapper">
         <header>
-            <h1>Coding Quiz</h1>
-            <p>SCORE:</p>
-            <p>HI SCORE:</p>
+            <!-- <h1>Coding Quiz</h1> -->
+            <div id="headerBoard">
+                <div id="score">SCORE<span id="scoreValue"><!--VALUE GENERATED FROM JAVASCRIPT--></span></div>
+                <div id="timer">TIME<span id="timerValue"><!--VALUE GENERATED FROM JAVASCRIPT-->/span></div>
+                <div id="hiScore">HI SCORE<span id="hiScoreValue"><!--VALUE GENERATED FROM JAVASCRIPT--></span></div>
+            </div>
         </header>
         <main>
-            <h2>Question goes here</h2>
+            <h2 id="question"><!--QUESTION GENERATED FROM JAVASCRIPT--></h2>
             <ul>
-                <li>ANSWER A</li>
-                <li>ANSWER B</li>
-                <li>ANSWER C</li>
-                <li>ANSWER D</li>
+                <li><button id="answer">1</button></li>
+                <li><button id="answer">2</button></li>
+                <li><button id="answer">3</button></li>
+                <li><button id="answer">4</button></li>
             </ul>
             <h3>Right or Wrong here</h3>
         </main>
@@ -29,6 +36,6 @@
             <p>Created May 2023 | A UC Berkley Full Stack Web Development Bootcamp Project</p>
         </footer>
     </div>
-    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/script.js">//MAGIC HAPPENS IN HERE</script>
 </body>
 </html>

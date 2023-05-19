@@ -18,6 +18,8 @@ This page is used for grading purposes by the UC Berkley coding bootcamp staff.
 
 ## Credits
 
+- Google Fonts: [Monda](https://fonts.google.com/specimen/Monda?preview.text=SCORE&preview.size=60&preview.text_type=custom&category=Sans+Serif,Display,Monospace)
+- Google Fonts: [Squada One](https://fonts.google.com/specimen/Squada+One?preview.text=69&preview.size=60&preview.text_type=custom&category=Sans+Serif,Display,Monospace)
 - Edward Von Schondorf
 
 ## License
