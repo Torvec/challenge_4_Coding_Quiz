@@ -67,6 +67,7 @@ button {
     background-color: lightgray;
     border-radius: 10px;
     font-family: 'Monda', sans-serif;
+    width: 20%;
 }
 
 #scoreValue, #timerValue, #hiScoreValue {

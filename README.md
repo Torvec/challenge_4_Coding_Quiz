@@ -2,7 +2,11 @@
 
 ## Description
 
-The week 04 challenge is to create a timed multiple choice quiz designed to assess coding skills and will include a scoring system that you can save your initials to.
+The week 04 challenge is to create a timed multiple choice quiz designed to assess coding skills and will include a scoring system that you can save your initials to. 
+
+## GitHub Pages
+
+Visit the GitHub pages link to see website: [Coding Quiz](https://torvec.github.io/challenge_4_Coding_Quiz/)
 
 ## Visuals
 
@@ -10,7 +14,7 @@ COMING SOON
 
 ## Installation
 
-Visit the GitHub pages link to see website: [Coding Quiz](https://torvec.github.io/challenge_4_Coding_Quiz/)
+N/A
 
 ## Usage
 
