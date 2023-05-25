@@ -1,28 +1,39 @@
 // START SCREEN
-    // START BUTTON -> USER PRESSES IT -> BUTTON DISAPPEARS AND THE FIRST QUESTION AND ANSWER CHOICES DISPLAYS -> TIMER STARTS
+    // TITLE 
+    // INTRODUCTION
+    // START QUIZ BUTTON (STARTS TIMER AND DISPLAYS FIRST QUESTION)
+    // VIEW HIGH SCORES BUTTON (DISPLAYS HIGH SCORES SCREEN)
 
-// TIMER COUNTDOWN FROM A SET TIME (LENGTH DETERMINED BY USER?)
-    // CONSTANTLY DECREASES BY 1 SEC
-    // IF USER GETS A QUESTION INCORRECT THEN TIME IS SUBTRACTED
-
-// MULTIPLE CHOICE QUESTIONS
-    // RANDOMIZED ORDER OF QUESTIONS
-        // NEED TO MAKE SURE QUESTION ISN'T ASKED AGAIN AFTER IT IS ANSWERED
-    // RANDOMIZED ORDER OF ANSWERS
-    // IF ANSWER IS CORRECT, SOME INDICATION THAT IT IS CORRECT
-    // IF ANSWER IS INCORRECT, SOME INDICATION THAT IT IS INCORRECT
-        // DOES NOT SHOW CORRECT ANSWER IF THEY GOT IT WRONG
+// QUESTIONS SCREENS
+    // IF ANSWER IS CORRECT, MESSAGE INDICATES THAT IT IS CORRECT AND SCORE INCREASES
+    // IF ANSWER IS INCORRECT, MESSAGE INDICATES THAT IT IS INCORRECT AND TIME IS SUBTRACTED FROM THE TIMER
     // WHEN USER SELECTS AN ANSWER IT WILL DISPLAY IF IT WAS CORRECT OR INCORRECT FOR A FEW SECONDS AND THE TIMER WILL BE PAUSED BEFORE THE NEXT QUESTION DISPLAYS
-    // MAKE ALL ANSWER CHOICES BUTTONS
-
-// SCORE KEEPING
-    // INCREASES FOR EVERY CORRECT ANSWER
-    // HIGHEST SCORE STAYS DISPLAYED FOR ENTIRE TIME THE QUIZ IS BEING DONE, DOES NOT SAVE IF YOU LEAVE AND COME BACK
+    // CAN ONLY SELECT ONE ANSWER PER QUESTION
 
 // GAME OVER SCREEN
-    // DISPLAY FINAL SCORE AND ALLOW USER TO ENTER INITIALS
-    // HAS A BUTTON TO REPLAY WHICH TAKES YOU BACK TO THE START SCREEN
+    // GAME OVER MESSAGE
+    // FINAL SCORE
+    // ENTER INITIALS MESSAGE
+    // INITIALS INPUT
+    // SUBMIT SCORE BUTTON (SAVES SCORE TO LOCAL STORAGE AND DISPLAYS HIGH SCORES SCREEN)    
 
+// SCOREBOARD SCREEN
+    // DISPLAYS TOP 10 SCORES WITH INITIALS (TAKEN FROM LOCAL STORAGE)
+        // IF THERE ARE LESS THAN 10 SCORES THEN IT WILL FILL IN THE BLANKS WITH BLANK INITIALS AND 0 SCORE
+    // CLEAR HIGH SCORES BUTTON (REMOVES ALL SCORES FROM LOCAL STORAGE)
+    // BACK TO START BUTTON (TAKES YOU BACK TO THE START SCREEN)
+
+// SCORE KEEPING FUNCTIONALITY
+    // INCREASES FOR EVERY CORRECT ANSWER
+    // HIGHEST SCORE STORED IN LOCAL STORAGE
+    // TOP 10 SCORES DISPLAYED ON THE SCOREBOARD SCREEN
+    // SCORE RESETS WHEN GAME IS RESTARTED
+    // 
+
+// TIMER COUNTDOWN FUNCTIONALITY
+    // CONSTANTLY DECREASES BY 1 SEC
+    // IF USER GETS A QUESTION INCORRECT THEN TIME IS SUBTRACTED
+    // TIMER RESETS WHEN GAME IS RESTARTED
 
 // Storing the content of the quiz in an array of objects
 var questions = [
@@ -78,9 +89,6 @@ var questions = [
     }
 ];
 
-// Tile screen content
-var title = "JavaScript Quiz";
-var introduction = "Welcome to the JavaScript Multiple Choice Quiz! In this timed game, you'll test your knowledge of JavaScript. Each correct answer will earn you 1 point, while an incorrect answer will deduct 5 seconds from the remaining time. The game will end when either all questions are answered or the timer reaches 0. Good luck and have fun!";
 
 // Declaring Global Variables
 var main = document.querySelector("main");
@@ -91,29 +99,28 @@ var timeLeft = 10;
 var scoreValue = 0;
 var hiScoreValue = 0;
 
+// Clears the main element
 function clearMain() {
-    main.innerHTML = ""; //Removes all child elements
+    main.innerHTML = "";
+}
+
+//Create an element and append it to the main element
+function createContent(element, id, textContent) {
+    var element = document.createElement(element);
+        element.setAttribute("id", id);
+        element.textContent = textContent;
+    main.appendChild(element);
 }
 
 // StartUp function runs when the page is loaded or when the game is restarted
 function startUp() {
     clearMain();
-    //Create the title
-    var titleEl = document.createElement("h1");
-        titleEl.setAttribute("id", "title");
-        titleEl.textContent = title;
-    main.appendChild(titleEl);
-    //Create the introduction
-    var introEl = document.createElement("p");
-        introEl.setAttribute("id", "description");
-        introEl.textContent = introduction;
-    main.appendChild(introEl);
-    //Create the start button
-    var startBtn = document.createElement("button");
-        startBtn.setAttribute("id", "startButton");
-        startBtn.textContent = "Start Quiz";
-    main.appendChild(startBtn);
-    startBtn.addEventListener("click", startQuiz);
+    createContent("h1", "title", "JavaScript Quiz");
+    createContent("p", "description", "Welcome to the JavaScript Multiple Choice Quiz! In this timed game, you'll test your knowledge of JavaScript. Each correct answer will earn you 1 point, while an incorrect answer will deduct 5 seconds from the remaining time. The game will end when either all questions are answered or the timer reaches 0. Good luck and have fun!");
+    createContent("button", "startButton", "Start Quiz");
+    createContent("button", "viewScoresButton", "View High Scores");
+    startButton.addEventListener("click", startQuiz);
+    viewScoresButton.addEventListener("click", scoreboard);
     // Set initial values
     score.textContent = scoreValue;
     timer.textContent = timeLeft;
@@ -149,10 +156,10 @@ function createAnswers(questionNumber){
 
 //Check if the answer is correct or incorrect
 function checkAnswer(questionNumber) {
-    var answer0 = document.getElementById("answer0");
-    var answer1 = document.getElementById("answer1");
-    var answer2 = document.getElementById("answer2");
-    var answer3 = document.getElementById("answer3");
+    //var answer0 = document.getElementById("answer0");
+    //var answer1 = document.getElementById("answer1");
+    //var answer2 = document.getElementById("answer2");
+    //var answer3 = document.getElementById("answer3");
     
     /*if( ){
         var correctMsg = main.createElement("p");
@@ -204,46 +211,32 @@ function subtractTime() {
 // EndQuiz function runs when the timer reaches 0 or all questions are answered
 function endQuiz() {
     clearMain()
-    //Game Over Message
-    var endMsg = document.createElement("h2");
-        endMsg.setAttribute("id", "endMsg");
-        endMsg.textContent = "Game Over!";
-    main.appendChild(endMsg);
-    //Initials Message
-    var initialsMsg = document.createElement("p");
-        initialsMsg.setAttribute("id", "initialsMsg");
-        initialsMsg.textContent = "Enter your initials to record your score:";
-    main.appendChild(initialsMsg);
-   //Initials Input
-    var initials = document.createElement("input");
+    createContent("h2", "endMsg", "Game Over!");
+    createContent("p", "initialsMsg", "Enter your initials to record your score:");
+    initials = document.createElement("input");
         initials.setAttribute("id", "initials");
         initials.setAttribute("type", "text");
         initials.setAttribute("maxlength", "2");
         initials.setAttribute("required", "true");
     main.appendChild(initials);
-    //Submit Score Button
-    var submitBtn = document.createElement("button");
-        submitBtn.setAttribute("id", "submitBtn");
-        submitBtn.textContent = "Submit Score";
-    main.appendChild(submitBtn);
-    submitBtn.addEventListener("click", submitScore);
+    createContent("button", "submitScoreButton", "Submit Score");
+    submitScoreButton.addEventListener("click", submitScore);    
 }
 
-// Submit Score function runs when the submit score button is clicked
-function submitScore(){
-    
+function submitScore() {
     var initials = document.getElementById("initials");
     var initialsValue = initials.value;
     localStorage.setItem("initials", initialsValue);
     localStorage.setItem("score", scoreValue);
-    
+}
+
+// Submit Score function runs when the submit score button is clicked
+function scoreboard(){
+        
     clearMain()
 
     //Creates Top 10 Scores Message
-    var scoreMsg = document.createElement("h2");
-    scoreMsg.setAttribute("id", "scoreMsg");
-    scoreMsg.textContent = "Top 10 Scores";
-    main.appendChild(scoreMsg);
+    createContent("h2", "scoreMsg", "High Scores");
     
     //Creates the list of scores
     var scoreList = document.createElement("ol");
@@ -258,20 +251,15 @@ function submitScore(){
     main.appendChild(scoreList);
 
     //Creates replay button
-    var replayBtn = document.createElement("button");
-        replayBtn.setAttribute("id", "replayBtn");
-        replayBtn.textContent = "Replay";
-    main.appendChild(replayBtn);
+    createContent("button", "replayBtn", "Replay");
     replayBtn.addEventListener("click", startUp);
+
     //Creates clear scores button
-    var clearScoresBtn = document.createElement("button");
-        clearScoresBtn.setAttribute("id", "clearScoresBtn");
-        clearScoresBtn.textContent = "Clear High Scores";
-    main.appendChild(clearScoresBtn);
+    createContent("button", "clearScoresBtn", "Clear Scoreboard");
     clearScoresBtn.addEventListener("click", clearScores);
 }
 
-// Clear Scores function runs when the clear scores button is clicked and will clear the scores from local storage
+// Clear Scores from from local storage
 function clearScores() {
     localStorage.clear();//Clears the local storage
     scoreList.innerHTML = ""; //Clears the score list
