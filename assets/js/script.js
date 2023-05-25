@@ -87,12 +87,17 @@ var main = document.querySelector("main");
 var score = document.getElementById("scoreValue");
 var timer = document.getElementById("timerValue");
 var hiScore = document.getElementById("hiScoreValue");
-var timeLeft = 30;
+var timeLeft = 10;
 var scoreValue = 0;
 var hiScoreValue = 0;
 
+function clearMain() {
+    main.innerHTML = ""; //Removes all child elements
+}
+
 // StartUp function runs when the page is loaded or when the game is restarted
 function startUp() {
+    clearMain();
     //Create the title
     var titleEl = document.createElement("h1");
         titleEl.setAttribute("id", "title");
@@ -118,7 +123,7 @@ function startUp() {
 // StartQuiz function runs when the start button is clicked
 function startQuiz() {
     //Remove the start screen
-    main.innerHTML = ""; //Removes all child elements
+    clearMain()
     createQuestion(0);
     createAnswers(0);
     countdown();
@@ -165,7 +170,7 @@ function checkAnswer(questionNumber) {
 }
 
 function nextQuestion(questionNumber) {
-    main.removeChildren();
+    clearMain()
     createQuestion(questionNumber);
     createAnswers(questionNumber);
 }
@@ -198,7 +203,7 @@ function subtractTime() {
 
 // EndQuiz function runs when the timer reaches 0 or all questions are answered
 function endQuiz() {
-    main.removeChildren();
+    clearMain()
     //Game Over Message
     var endMsg = document.createElement("h2");
         endMsg.setAttribute("id", "endMsg");
@@ -224,35 +229,52 @@ function endQuiz() {
     submitBtn.addEventListener("click", submitScore);
 }
 
+// Submit Score function runs when the submit score button is clicked
 function submitScore(){
-    //var initials = document.getElementById("initials");
-    //var initialsValue = initials.value;
-    //localStorage.setItem("initials", initialsValue);
-    //localStorage.setItem("score", scoreValue);
-    main.removeChildren();
     
+    var initials = document.getElementById("initials");
+    var initialsValue = initials.value;
+    localStorage.setItem("initials", initialsValue);
+    localStorage.setItem("score", scoreValue);
+    
+    clearMain()
+
+    //Creates Top 10 Scores Message
     var scoreMsg = document.createElement("h2");
     scoreMsg.setAttribute("id", "scoreMsg");
     scoreMsg.textContent = "Top 10 Scores";
     main.appendChild(scoreMsg);
     
+    //Creates the list of scores
     var scoreList = document.createElement("ol");
-    scoreList.setAttribute("id", "scoreList");
+        scoreList.setAttribute("id", "scoreList");
+    var scoreItem = [];
+    for (var i = 0; i < 10; i++) {
+        scoreItem[i] = document.createElement("li");
+        scoreItem[i].setAttribute("id", "scoreItem" + i);
+        scoreItem[i].textContent = "Initials: " + localStorage.getItem("initials" + i) + " Score: " + localStorage.getItem("score" + i);
+        scoreList.appendChild(scoreItem[i]);
+    }
     main.appendChild(scoreList);
 
-
-    
+    //Creates replay button
     var replayBtn = document.createElement("button");
-    replayBtn.setAttribute("id", "replayBtn");
-    replayBtn.textContent = "Replay";
+        replayBtn.setAttribute("id", "replayBtn");
+        replayBtn.textContent = "Replay";
     main.appendChild(replayBtn);
     replayBtn.addEventListener("click", startUp);
-    
+    //Creates clear scores button
     var clearScoresBtn = document.createElement("button");
-    clearScoresBtn.setAttribute("id", "clearScoresBtn");
-    clearScoresBtn.textContent = "Clear High Scores";
+        clearScoresBtn.setAttribute("id", "clearScoresBtn");
+        clearScoresBtn.textContent = "Clear High Scores";
     main.appendChild(clearScoresBtn);
     clearScoresBtn.addEventListener("click", clearScores);
+}
+
+// Clear Scores function runs when the clear scores button is clicked and will clear the scores from local storage
+function clearScores() {
+    localStorage.clear();//Clears the local storage
+    scoreList.innerHTML = ""; //Clears the score list
 }
 
 startUp();
