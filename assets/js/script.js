@@ -40,7 +40,7 @@ var main = document.querySelector("main");
 var score = document.getElementById("scoreValue");
 var timer = document.getElementById("timerValue");
 var hiScore = document.getElementById("hiScoreValue");
-var timeLeft = 10;
+var timeLeft = 30;
 var scoreValue = 0;
 var hiScoreValue = 0;
 
@@ -79,32 +79,52 @@ function startUp() {
 function askQuestion(questionNumber) {
     clearMain();
     createContent("h2", "question", questions[questionNumber].question);
-    createAnswers(questionNumber);
-
-    checkAnswer(questionNumber);
+    displayAnswers(questionNumber);
 }
 
-//Create the answers
-function createAnswers(questionNumber){
+// Display the answers and check if the answer is correct or incorrect
+function displayAnswers(questionNumber){
     for (var i = 0; i < questions[questionNumber].answers.length; i++) {
-        var answer = document.createElement("button");
-        answer.setAttribute("id", "answer" + i);
-        answer.textContent = questions[questionNumber].answers[i];
-        main.appendChild(answer);
+        createContent("button", "answer" + i, questions[questionNumber].answers[i]);
+        var selectedAnswer = document.querySelector("#answer" + i);
+        selectedAnswer.addEventListener("click", function() {
+            if (this.textContent === questions[questionNumber].answers[questions[questionNumber].correctAnswer]) {
+                createContent("h2", "correctMsg", "Correct!");
+                addPoint();
+                disableButtons();
+                nextQuestion(questionNumber);
+            } else {
+                createContent("h2", "incorrectMsg", "Incorrect!");
+                subtractTime();
+                disableButtons();
+                nextQuestion(questionNumber);
+            }
+        });
     }
 }
 
-//Check if the answer is correct or incorrect
-function checkAnswer(questionNumber) {
-    var selectedAnswer = document.getElementById("answer" + i);
-    if (question[questionNumber].answers[correctAnswer] === question[questionNumber].answers[questionNumber]) {
-        addPoint();
+// Disable the buttons after an answer is selected
+function disableButtons(){
+    var disabled = document.querySelectorAll("button");
+    for (var i = 0; i < disabled.length; i++) {
+        disabled[i].setAttribute("disabled", "true");
     }
-}
+};
 
-function nextQuestion(questionNumber) {
-    clearMain()
-    askQuestion(questionNumber);
+// Load the next question or end the quiz if all questions are answered
+function nextQuestion(questionNumber){
+    questionNumber++;
+    if (questionNumber < questions.length) {
+        setTimeout(function() {
+            clearMain();
+            askQuestion(questionNumber);
+        }, 1000);
+    } else {
+        setTimeout(function() {
+            clearMain();
+            endQuiz();
+        }, 1000);
+    }
 }
 
 // Countdown function runs when the quiz starts and ends the quiz when it reaches 0
@@ -146,7 +166,10 @@ function endQuiz() {
         initials.setAttribute("required", "true");
     main.appendChild(initials);
     createContent("button", "submitScoreButton", "Submit Score");
-    submitScoreButton.addEventListener("click", submitScore);    
+    submitScoreButton.addEventListener("click", function() {
+        submitScore()
+        scoreboard()
+    });    
 }
 
 function submitScore() {
