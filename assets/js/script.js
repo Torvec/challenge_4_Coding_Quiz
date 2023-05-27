@@ -1,94 +1,39 @@
-// START SCREEN
+// START
     // TITLE 
     // INTRODUCTION
     // START QUIZ BUTTON (STARTS TIMER AND DISPLAYS FIRST QUESTION)
     // VIEW HIGH SCORES BUTTON (DISPLAYS HIGH SCORES SCREEN)
 
-// QUESTIONS SCREENS
-    // IF ANSWER IS CORRECT, MESSAGE INDICATES THAT IT IS CORRECT AND SCORE INCREASES
-    // IF ANSWER IS INCORRECT, MESSAGE INDICATES THAT IT IS INCORRECT AND TIME IS SUBTRACTED FROM THE TIMER
-    // WHEN USER SELECTS AN ANSWER IT WILL DISPLAY IF IT WAS CORRECT OR INCORRECT FOR A FEW SECONDS AND THE TIMER WILL BE PAUSED BEFORE THE NEXT QUESTION DISPLAYS
-    // CAN ONLY SELECT ONE ANSWER PER QUESTION
+// QUESTIONS
+    // LOAD ONE QUESTION AT A TIME WITH CORRESPONDING ANSWERS FROM ARRAY IN QUESTIONS.JS
+    // WHEN USER SELECTS AN ANSWER IT WILL DISPLAY IF IT WAS CORRECT OR INCORRECT FOR A FEW SECONDS AND THEN LOAD THE NEXT QUESTION
+    // IF ANSWER IS CORRECT, SCORE INCREASES
+    // IF ANSWER IS INCORRECT, TIME IS SUBTRACTED FROM THE TIMER
+    // WHEN AN ANSWER IS SELECTED ALL OF THE BUTTONS NEED TO BE DISABLED UNTIL THE NEXT QUESTION IS LOADED
 
-// GAME OVER SCREEN
+// GAME OVER
     // GAME OVER MESSAGE
     // FINAL SCORE
     // ENTER INITIALS MESSAGE
     // INITIALS INPUT
-    // SUBMIT SCORE BUTTON (SAVES SCORE TO LOCAL STORAGE AND DISPLAYS HIGH SCORES SCREEN)    
+    // SUBMIT SCORE BUTTON (SAVES SCORE TO LOCAL STORAGE AND DISPLAYS HIGH SCORES SCREEN)
 
-// SCOREBOARD SCREEN
+// SCOREBOARD
     // DISPLAYS TOP 10 SCORES WITH INITIALS (TAKEN FROM LOCAL STORAGE)
         // IF THERE ARE LESS THAN 10 SCORES THEN IT WILL FILL IN THE BLANKS WITH BLANK INITIALS AND 0 SCORE
+        // SCORES ARE DISPLAYED IN DESCENDING ORDER FROM HIGHEST TO LOWEST
     // CLEAR HIGH SCORES BUTTON (REMOVES ALL SCORES FROM LOCAL STORAGE)
     // BACK TO START BUTTON (TAKES YOU BACK TO THE START SCREEN)
 
 // SCORE KEEPING FUNCTIONALITY
     // INCREASES FOR EVERY CORRECT ANSWER
-    // HIGHEST SCORE STORED IN LOCAL STORAGE
-    // TOP 10 SCORES DISPLAYED ON THE SCOREBOARD SCREEN
+    // SCORE SAVED IN LOCAL STORAGE
     // SCORE RESETS WHEN GAME IS RESTARTED
-    // 
 
 // TIMER COUNTDOWN FUNCTIONALITY
     // CONSTANTLY DECREASES BY 1 SEC
     // IF USER GETS A QUESTION INCORRECT THEN TIME IS SUBTRACTED
     // TIMER RESETS WHEN GAME IS RESTARTED
-
-// Storing the content of the quiz in an array of objects
-var questions = [
-    {
-        question: "What is the output of the following code? console.log(typeof([]))",
-        answers: [
-            "object",
-            "array",
-            "undefined",
-            "null"
-        ],
-        correctAnswer: 0
-    },
-    {
-        question: "What is the correct way to check if a variable 'x' is an array in JavaScript?",
-        answers: [
-            "Array.isArray(x)",
-            "x.isArray()",
-            "typeof(x) === 'array'",
-            "x instanceof Array"
-        ],
-        correctAnswer: 0
-    },
-    {
-        question: "What does the '===' operator do in JavaScript?",
-        answers: [
-            "Checks for equality of values",
-            "Checks for equality of values and types",
-            "Assigns a value to a variable",
-            "Compare two variables lexicographically"
-        ],
-        correctAnswer: 1
-    },
-    {
-        question: "What is the scope of a variable with the 'var' keyword?",
-        answers: [
-            "Global scope",
-            "Local scope",
-            "Block scope",
-            "Function scope"
-        ],
-        correctAnswer: 3
-    },
-    {
-        question: "What does the setTimeout() function do in JavaScript?",
-        answers: [
-            "Pauses the execution of the program for a specified amount of time",
-            "Executes a function after a specified amount of time has passed",
-            "Sets an interval to repeatedly execute a function",
-            "Halts the program execution indefinitely"
-        ],
-        correctAnswer: 1
-    }
-];
-
 
 // Declaring Global Variables
 var main = document.querySelector("main");
@@ -119,7 +64,10 @@ function startUp() {
     createContent("p", "description", "Welcome to the JavaScript Multiple Choice Quiz! In this timed game, you'll test your knowledge of JavaScript. Each correct answer will earn you 1 point, while an incorrect answer will deduct 5 seconds from the remaining time. The game will end when either all questions are answered or the timer reaches 0. Good luck and have fun!");
     createContent("button", "startButton", "Start Quiz");
     createContent("button", "viewScoresButton", "View High Scores");
-    startButton.addEventListener("click", startQuiz);
+    startButton.addEventListener("click", function() {
+        askQuestion(0);
+        countdown();
+    });
     viewScoresButton.addEventListener("click", scoreboard);
     // Set initial values
     score.textContent = scoreValue;
@@ -127,21 +75,13 @@ function startUp() {
     hiScore.textContent = hiScoreValue;
 }
 
-// StartQuiz function runs when the start button is clicked
-function startQuiz() {
-    //Remove the start screen
-    clearMain()
-    createQuestion(0);
-    createAnswers(0);
-    countdown();
-}
+// Ask the question and display the answers
+function askQuestion(questionNumber) {
+    clearMain();
+    createContent("h2", "question", questions[questionNumber].question);
+    createAnswers(questionNumber);
 
-//Create the question
-function createQuestion(questionNumber){
-    var question = document.createElement("h2");
-    question.setAttribute("id", "question");
-    question.textContent = questions[questionNumber].question;
-    main.appendChild(question);
+    checkAnswer(questionNumber);
 }
 
 //Create the answers
@@ -156,30 +96,15 @@ function createAnswers(questionNumber){
 
 //Check if the answer is correct or incorrect
 function checkAnswer(questionNumber) {
-    //var answer0 = document.getElementById("answer0");
-    //var answer1 = document.getElementById("answer1");
-    //var answer2 = document.getElementById("answer2");
-    //var answer3 = document.getElementById("answer3");
-    
-    /*if( ){
-        var correctMsg = main.createElement("p");
-        correctMsg.setAttribute("id", "correctMsg");
-        correctMsg.textContent = "Correct!";
+    var selectedAnswer = document.getElementById("answer" + i);
+    if (question[questionNumber].answers[correctAnswer] === question[questionNumber].answers[questionNumber]) {
         addPoint();
-        nextQuestion();
-    } else {
-        var incorrectMsg = main.createElement("p");
-        incorrectMsg.setAttribute("id", "incorrectMsg");
-        incorrectMsg.textContent = "Incorrect!";
-        subtractTime();
-        nextQuestion();
-    }*/
+    }
 }
 
 function nextQuestion(questionNumber) {
     clearMain()
-    createQuestion(questionNumber);
-    createAnswers(questionNumber);
+    askQuestion(questionNumber);
 }
 
 // Countdown function runs when the quiz starts and ends the quiz when it reaches 0
@@ -199,6 +124,7 @@ function countdown() {
 // Adds a point to the score when the correct answer is made
 function addPoint() {
     scoreValue++;
+
     score.textContent = scoreValue;
 }
 
