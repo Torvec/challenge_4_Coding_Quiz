@@ -2,7 +2,7 @@
     // TITLE 
     // INTRODUCTION
     // START QUIZ BUTTON (STARTS TIMER AND DISPLAYS FIRST QUESTION)
-    // VIEW HIGH SCORES BUTTON (DISPLAYS HIGH SCORES SCREEN)
+    // VIEW HIGH SCORES BUTTON (DISPLAYS SCOREBOARD)
 
 // QUESTIONS
     // LOAD ONE QUESTION AT A TIME WITH CORRESPONDING ANSWERS FROM ARRAY IN QUESTIONS.JS
@@ -28,6 +28,9 @@
 // SCORE KEEPING FUNCTIONALITY
     // INCREASES FOR EVERY CORRECT ANSWER
     // SCORE SAVED IN LOCAL STORAGE
+        // IF SCORE IS GREATER THAN THE CURRENT HIGH SCORE THEN IT REPLACES THE CURRENT HIGH SCORE
+        // IF SCORE IS LESS THAN THE CURRENT HIGH SCORE THEN IT IS ADDED TO THE SCOREBOARD IN THE CORRECT POSITION
+        //
     // SCORE RESETS WHEN GAME IS RESTARTED
 
 // TIMER COUNTDOWN FUNCTIONALITY
@@ -111,7 +114,7 @@ function disableButtons(){
     }
 };
 
-// Load the next question or end the quiz if all questions are answered
+// Load the next question or end the quiz if all questions are answered, with 1 second delay to allow the user to see the correct/incorrect messages
 function nextQuestion(questionNumber){
     questionNumber++;
     if (questionNumber < questions.length) {
@@ -144,7 +147,6 @@ function countdown() {
 // Adds a point to the score when the correct answer is made
 function addPoint() {
     scoreValue++;
-
     score.textContent = scoreValue;
 }
 
@@ -166,52 +168,74 @@ function endQuiz() {
         initials.setAttribute("required", "true");
     main.appendChild(initials);
     createContent("button", "submitScoreButton", "Submit Score");
-    submitScoreButton.addEventListener("click", function() {
-        submitScore()
-        scoreboard()
+        submitScoreButton.addEventListener("click", function() {
+        //Get the value of the input field
+        var initialsInput = document.getElementById("initials").value; 
+        // Convert to uppercase
+        var initials = initialsInput.toUpperCase(); 
+        // Create a string of the alphabet
+        var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+        // Check if the initials are letters
+        for (var i = 0; i < initials.length; i++) {
+            if (alphabet.indexOf(initials[i]) === -1) {
+                alert("Please enter only letters A-Z");
+                return;
+            }
+        }    
+        // Store the initials and score in an object 
+        var userEntry = {
+            initials: initials,
+            score: scoreValue}
+        // Store the object in an array
+        var storedEntries = localStorage.getItem("userEntries");
+        var entries;
+        if (storedEntries) {
+            entries = JSON.parse(storedEntries);
+        } else {
+            entries = [];
+        }
+        // Push the object to the array
+        entries.push(userEntry);
+        localStorage.setItem("userEntries", JSON.stringify(entries));
+        main.innerHTML = "";
+        scoreboard();
     });    
 }
 
-function submitScore() {
-    var initials = document.getElementById("initials");
-    var initialsValue = initials.value;
-    localStorage.setItem("initials", initialsValue);
-    localStorage.setItem("score", scoreValue);
-}
-
-// Submit Score function runs when the submit score button is clicked
-function scoreboard(){
-        
+// Submit Score function runs when the submit score button is clicked            
+function scoreboard() {
     clearMain()
-
-    //Creates Top 10 Scores Message
-    createContent("h2", "scoreMsg", "High Scores");
-    
-    //Creates the list of scores
-    var scoreList = document.createElement("ol");
-        scoreList.setAttribute("id", "scoreList");
-    var scoreItem = [];
-    for (var i = 0; i < 10; i++) {
-        scoreItem[i] = document.createElement("li");
-        scoreItem[i].setAttribute("id", "scoreItem" + i);
-        scoreItem[i].textContent = "Initials: " + localStorage.getItem("initials" + i) + " Score: " + localStorage.getItem("score" + i);
-        scoreList.appendChild(scoreItem[i]);
+    var userEntries = localStorage.getItem("userEntries");
+    var parsedEntry = JSON.parse(userEntries);
+    // Sort in descending order by score
+    parsedEntry.sort(function(a, b) {
+        return b.score - a.score; 
+    });
+    createContent("h2", "scoreboard", "Scoreboard");
+    createContent("ol", "scoreList", "");
+    for(var i = 0; i < parsedEntry.length; i++){
+        var scoreItem = document.createElement("li");
+        scoreItem.textContent = parsedEntry[i].initials + " " + parsedEntry[i].score;
+        scoreList.appendChild(scoreItem);
     }
-    main.appendChild(scoreList);
 
-    //Creates replay button
+    // Create replay button
     createContent("button", "replayBtn", "Replay");
     replayBtn.addEventListener("click", startUp);
 
-    //Creates clear scores button
+    // Create clear scores button
     createContent("button", "clearScoresBtn", "Clear Scoreboard");
-    clearScoresBtn.addEventListener("click", clearScores);
+    clearScoresBtn.addEventListener("click", function(){
+        if (confirm("Are you sure you want to clear the scoreboard?")){
+            clearScores()
+        }
+    });
 }
 
-// Clear Scores from from local storage
+// Clear Scores from from local storage and clear the score list
 function clearScores() {
-    localStorage.clear();//Clears the local storage
-    scoreList.innerHTML = ""; //Clears the score list
+    localStorage.clear();
+    scoreList.innerHTML = "";
 }
 
 startUp();
