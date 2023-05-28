@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Monda:wght@400;700&family=Squada+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Style Template for CSS</title>
+</head>
+<body>
+    <div id="siteWrapper">
+        <header>
+            <div id="headerBoard">
+                <div id="score">SCORE<span id="scoreValue">0</span></div>
+                <div id="timer">TIME<span id="timerValue">30</span></div>
+                <div id="hiScore">HI SCORE<span id="hiScoreValue">69</span></div>
+            </div>
+        </header>
+        <main>
+            <h1 id="title">JavaScript Quiz</h1>
+                <p id="description">Welcome to the JavaScript Multiple Choice Quiz! In this timed game, you'll test your knowledge of JavaScript. Each correct answer will earn you 1 point, while an incorrect answer will deduct 5 seconds from the remaining time. The game will end when either all questions are answered or the timer reaches 0. Good luck and have fun!</p>
+                <button id="startButton">Start Quiz</button>
+                <button id="viewScoresButton">View High Scores</button>
+            <h2 id="question">Question</h2>
+                <button class="answerBtn">Answer 1</button>
+                <button class="answerBtn">Answer 2</button>
+                <button class="answerBtn">Answer 3</button>
+                <button class="answerBtn">Answer 4</button>
+            <h2 id="gameOver">Game Over!</h2>
+                <p id="initialsMsg">Enter your initials to record your score:</p>
+                <input type="text" id="initialsInput" placeholder="Enter your initials here">
+                <button id="submitScoreButton">Submit Score</button>
+            <h2 id="scoreboard">High Scores</h2>
+                <ol id="scoreList">
+                    <li>AA - 100</li>
+                    <li>BB - 90</li>
+                    <li>CC - 80</li>
+                    <li>DD - 70</li>
+                    <li>EE - 60</li>
+                    <li>FF - 50</li>
+                    <li>GG - 40</li>
+                    <li>HH - 30</li>
+                    <li>II - 20</li>
+                    <li>JJ - 10</li>
+                </ol>
+                <button id="replayBtn">Replay</button>
+                <button id="clearScoresBtn">Clear High Scores</button>
+        </main>
+        <footer>
+            <p>By Edward Von Schondorf</p>
+            <p>Created May 2023 | A UC Berkley Full Stack Web Development Bootcamp Project</p>
+        </footer>
+    </div>
+</body>
+</html>
