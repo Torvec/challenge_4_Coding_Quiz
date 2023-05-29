@@ -6,54 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Monda:wght@400;700&family=Squada+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Style Template for CSS</title>
 </head>
 <body>
-    <div id="siteWrapper">
-        <header>
-            <div id="headerBoard">
-                <div id="score">SCORE<span id="scoreValue">0</span></div>
-                <div id="timer">TIME<span id="timerValue">30</span></div>
-                <div id="hiScore">HI SCORE<span id="hiScoreValue">69</span></div>
-            </div>
-        </header>
-        <main>
-            <h1 id="title">JavaScript Quiz</h1>
-                <p id="description">Welcome to the JavaScript Multiple Choice Quiz! In this timed game, you'll test your knowledge of JavaScript. Each correct answer will earn you 1 point, while an incorrect answer will deduct 5 seconds from the remaining time. The game will end when either all questions are answered or the timer reaches 0. Good luck and have fun!</p>
-                <button id="startButton">Start Quiz</button>
-                <button id="viewScoresButton">View High Scores</button>
-            <h2 id="question">Question</h2>
-                <button class="answerBtn">Answer 1</button>
-                <button class="answerBtn">Answer 2</button>
-                <button class="answerBtn">Answer 3</button>
-                <button class="answerBtn">Answer 4</button>
-            <h2 id="gameOver">Game Over!</h2>
-                <p id="initialsMsg">Enter your initials to record your score:</p>
-                <input type="text" id="initialsInput" placeholder="Enter your initials here">
-                <button id="submitScoreButton">Submit Score</button>
-            <h2 id="scoreboard">High Scores</h2>
-                <ol id="scoreList">
-                    <li>AA - 100</li>
-                    <li>BB - 90</li>
-                    <li>CC - 80</li>
-                    <li>DD - 70</li>
-                    <li>EE - 60</li>
-                    <li>FF - 50</li>
-                    <li>GG - 40</li>
-                    <li>HH - 30</li>
-                    <li>II - 20</li>
-                    <li>JJ - 10</li>
-                </ol>
-                <button id="replayBtn">Replay</button>
-                <button id="clearScoresBtn">Clear High Scores</button>
-        </main>
-        <footer>
-            <p>By Edward Von Schondorf</p>
-            <p>Created May 2023 | A UC Berkley Full Stack Web Development Bootcamp Project</p>
-        </footer>
-    </div>
+
+    <header>
+        <div id="score">SCORE<span id="scoreValue">0</span></div>
+        <div id="timer">TIME<span id="timerValue">30</span></div>
+        <div id="hiScore">HI SCORE<span id="hiScoreValue">69</span></div>
+    </header>
+
+    <main>
+        <!--START-->
+        <h1>JavaScript Quiz</h1>
+        <p>Welcome to the JavaScript Multiple Choice Quiz! In this timed game, you'll test your knowledge of JavaScript. Each correct answer will earn you 1 point, while an incorrect answer will deduct 5 seconds from the remaining time. The game will end when either all questions are answered or the timer reaches 0. Good luck and have fun!</p>
+        <div class="btnGroup">
+            <button id="startButton">Start Quiz</button>
+            <button id="viewScoresButton">View High Scores</button>
+        </div>
+        <!--QUESTION-->
+        <h2 class="question">What is the correct way to check if a variable 'x' is an array in JavaScript?</h2>
+        <ol id="answerList">
+            <li>
+                <button class="answerBtn" id="answer1">A</button>
+                <label for="answer1">Array.isArray(x) Array.isArray(x) Array.isArray(x)</label>
+            </li>
+            <li>
+                <button class="answerBtn" id="answer2">B</button>
+                <label for="answer2">x.isArray() x.isArray() x.isArray() x.isArray()</label>
+            </li>
+            <li>
+                <button class="answerBtn" id="answer3">C</button>
+                <label for="answer3">typeof(x) === 'array' typeof(x) === 'array' typeof(x) === 'array' typeof(x) === 'array'</label>
+            </li>
+            <li>
+                <button class="answerBtn" id="answer4">D</button>
+                <label for="answer4">x instanceof Array x instanceof Array x instanceof Array x instanceof Array</label>
+            </li>
+        </ol>
+        <p id="correctMsg">CORRECT!</p>
+        <P id="incorrectMsg">INCORRECT!</P>
+        <!--QUIZ OVER-->
+        <h2>Quiz Over!</h2>
+        <p id="answeredAllMsg">Great Job! you answered all of the questions!</p>
+        <p id="outOfTimeMsg">Oh no! You ran out of time! Submit your score and try again!</p>
+        <form id="submitScoreForm">
+            <input type="text" id="initialsInput" placeholder="Enter Your Initials" maxlength="2" required>
+            <button id="submitScoreBtn">Submit Score</button>
+        </form>
+        <!--HIGH SCORES-->
+        <h2>High Scores</h2>
+        <ol id="scoreList">
+            <li><span class="scoreListInitials">AA</span><span class="scoreListScore">10</span></li>
+            <li><span class="scoreListInitials">BB</span><span class="scoreListScore">9</span></li>
+            <li><span class="scoreListInitials">CC</span><span class="scoreListScore">8</span></li>
+            <li><span class="scoreListInitials">DD</span><span class="scoreListScore">7</span></li>
+            <li><span class="scoreListInitials">EE</span><span class="scoreListScore">6</span></li>
+            <li><span class="scoreListInitials">FF</span><span class="scoreListScore">5</span></li>
+            <li><span class="scoreListInitials">GG</span><span class="scoreListScore">4</span></li>
+            <li><span class="scoreListInitials">HH</span><span class="scoreListScore">3</span></li>
+            <li><span class="scoreListInitials">II</span><span class="scoreListScore">2</span></li>
+            <li><span class="scoreListInitials">JJ</span><span class="scoreListScore">1</span></li>
+        </ol>
+        <div class="btnGroup">
+            <button id="replayBtn">Replay</button>
+            <button id="clearScoresBtn">Clear Scores</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>A UC Berkley Full Stack Web Development Bootcamp Project</p>
+        <p>Created May 2023 by Edward Von Schondorf</p>
+        <a class="myPortfolio" href="https://torvec.github.io/challenge_2_myPortfolio/" target="_blank">My Portfolio</a>
+    </footer>
+
 </body>
 </html>
