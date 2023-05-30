@@ -1,9 +1,15 @@
 :root {
-    --pri_color: ;
-    --sec_color: ;
-    --comp_color: ;
-    --pad: ;
-    --mar: ;
+    --indigo: #1a237e ;
+    --blue: #2962ff;
+    --lightblue: #bbdefb;
+    --lightgray: #eceff1;
+    --red: #ff4444;
+    --green: #00C851;
+    --black: #212121;
+    --white: #fafafa;
+    --width: 90%;
+    --maxwidth: 800px;
+    --halfmaxwidth: 400px;
 }
 
 * {
@@ -15,15 +21,17 @@ html {
 }
 
 body {
-    background-color: white;
+    background-color: var(--lightgray);
     font-family: sans-serif;
     font-size: 62.5%; /* 1rem = 10px */
+    color: var(--black);
 }
 
 header, main, footer {
-    width: 90%;
+    width: var(--width);
     max-width: 1000px;
     margin: 0 auto;
+    background-color: var(--white);
 }
 
 /* SITE HEADER STYLES */
@@ -32,6 +40,7 @@ header {
     display: flex;
     justify-content: space-between;
     padding: 1em 0;
+    background-color: var(--lightgray);
 }
 
 #score, #timer, #hiScore {
@@ -40,20 +49,21 @@ header {
     align-items: center;
     font-size: 1.25rem;
     font-family: 'Monda', sans-serif;
-    min-width: 33%;
+    width: 33%;
+    color: var(--blue);
 }
 
 #scoreValue, #timerValue, #hiScoreValue {
     font-size: 3.0rem;
     font-family: 'Squada One', monospace;
+    color: var(--indigo);
 }
 
 /* MAIN CONTENT STYLES */
 
 main {
-    border-top: 2px solid lightgray;
-    border-bottom: 2px solid lightgray;
-    padding-bottom: 3em;
+    border-radius: 20px 20px 0 0;
+    padding: 2em 0;
 }
 
 h1 {
@@ -61,24 +71,23 @@ h1 {
     text-align: center;
     font-weight: bold;
     margin: 1em 0;
+    color: var(--indigo);
 }
 
 h2 {
     font-size: 2.0rem;
-    text-align: center;
     font-weight: bold;
-    margin: 1em 0;
-}
-
-h2.question {
-    text-align: left;
-    font-weight: normal;
+    margin: 2em auto;
+    color: var(--indigo);
+    width: var(--width);
 }
 
 p {
     line-height: 1.5;
     font-size: 1.25rem;
-    margin-bottom: 1.0em;
+    margin: 0 auto;
+    width: var(--width);
+    max-width: var(--maxwidth);
 }
 
 .btnGroup {
@@ -86,26 +95,26 @@ p {
     flex-direction: column;
     gap: 1em;
     width: 80%;
-    max-width: 400px;
-    margin: 0 auto;
+    max-width: var(--halfmaxwidth);
+    margin: 10.0em auto;
 }
 
 button {
     font-size: 1.25rem;
     padding: 0.75em 0;
     border-radius: 10px;
-    background-color: lightgray;
     cursor: pointer;
     border: none;
+    color: var(--white);
+    background-color: var(--blue);
 }
 
-button:hover {
-    background-color: darkgray;
+button:hover, #submitScoreBtn:hover {
+    opacity: 80%;
 }
 
-button:active {
-    background-color: navy;
-    color: white;
+button:active, #submitScoreBtn:active {
+    background-color: var(--indigo);
 }
 
 /* QUESTIONS STYLES */
@@ -118,15 +127,19 @@ button.answerBtn {
 #answerList {
     display: flex;
     flex-direction: column;
-    margin: 0 auto 2em;
+    margin: 0 auto 4em;
     width: 90%;
-    max-width: 600px;
-    gap: 1em;
+    max-width: var(--maxwidth);
+    gap: 4em;
 }
 
 #answerList li {
     display: flex;
     align-items: center;
+}
+
+#answerList li:hover {
+    border-right: 4px solid var(--lightblue);
 }
 
 label {
@@ -137,101 +150,102 @@ label {
 #correctMsg, #incorrectMsg {
     font-weight: bold;
     text-align: center;
-    padding: 1em;
+    padding: 0.5em;
+    max-width: var(--maxwidth);
+    margin: 0 auto;
+    color: var(--white);
 }
 
 #correctMsg {
-    color: green;
-    background-color: lightgreen;
+    background-color: var(--green);
 }
 
 #incorrectMsg {
-    color: red;
-    background-color: lightpink;
+    background-color: var(--red);
 }
 
 /* SUBMIT SCORE STYLES */
 
 form {
-    padding: 5em 0;
+    padding: 10em 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    max-width: 600px;
-    flex-wrap: wrap;
+    width: var(--width);
+    max-width: var(--maxwidth);
     margin: 0 auto;
 }
 
 input {
     padding: 0.75em;
     border-radius: 10px 0 0 10px;
-    border: 2px solid lightgray;
+    border: 2px solid var(--blue);
     width: 60%;
     font-size: 1.25rem;
 }
 
+input:focus {
+    outline: none;
+    background-color: var(--lightgray);
+}
+
 #submitScoreBtn {
-    background-color: lightgray;
+    background-color: var(--blue);
     border-radius: 0 10px 10px 0;
-    border: 2px solid lightgrey;
+    border: 2px solid var(--blue);
     width: 40%;
 }
 
 /* SCOREBOARD STYLES */
 
 #scoreList {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin: 0 auto 1em;
     padding: 0;
-    max-width: 600px;
+    max-width: 400px;
 }
 
 #scoreList li {
-    margin-bottom: 0.5em;
+    display: flex;
 }
 
-.scoreListInitials {
-    background-color: lightgray;
-    width: 80%;
-    padding: 0.5em;
-    border-radius: 10px 0 0 10px;
-    display: inline-block;
+#scoreList li:hover {
+    border-left: 4px solid var(--lightblue);
+    border-right: 4px solid var(--lightblue);
 }
 
-.scoreListScore {
-    background-color: darkgray;
-    width: 20%;
+.scoreList_Initials, .scoreList_Score {
+    width: 50%;
+    padding: 0.5em 1.0em;
+}
+
+.scoreList_Initials {
+    font-family: 'Monda', sans-serif;
     text-align: center;
-    padding: 0.5em;
-    border-radius: 0 10px 10px 0;
-    display: inline-block;
+    color: var(--blue);
 }
 
-/* SIT FOOTER STYLES */
+.scoreList_Score {
+    font-family: 'Squada One', monospace;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.75rem;
+    color: var(--indigo);
+}
+
+/* SITE FOOTER STYLES */
 
 footer {
-    margin-top: 3em;
+    padding: 3.0em 0;
+    margin-bottom: 3.0em;
+    background-color: var(--lightblue);
+    border-radius: 0 0 20px 20px;
+    border-top: 4px solid var(--indigo);
 }
 
 footer p {
-    color: darkblue;
-    font-size: 1.0rem;  
-}
-
-a.myPortfolio {
-    background-color: rgb(245, 120, 25);
-    color: rgb(240, 240, 240);
-    display: block;
-    border-radius: 10px;
-    padding: 0.5em;
-    max-width: 200px;
-    margin: 1em auto;
-    font-size: 1.25rem;
+    color: var(--indigo);
+    font-size: 1.0rem;
+    margin-bottom: 1.0em;
     text-align: center;
-    text-decoration: none;
-}
-
-a.myPortfolio:hover {
-    background-color: rgb(245, 120, 25, 0.80);
 }
