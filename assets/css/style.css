@@ -121,30 +121,6 @@ button:active, #submitScoreBtn:active {
 
 button.answerBtn {
     padding: 1.0em;
-    margin-right: 1.0em;
-}
-
-#answerList {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto 4em;
-    width: 90%;
-    max-width: var(--maxwidth);
-    gap: 4em;
-}
-
-#answerList li {
-    display: flex;
-    align-items: center;
-}
-
-#answerList li:hover {
-    border-right: 4px solid var(--lightblue);
-}
-
-label {
-    font-size: 1.25rem;
-    line-height: 1.5;
 }
 
 #correctMsg, #incorrectMsg {
@@ -167,7 +143,7 @@ label {
 /* SUBMIT SCORE STYLES */
 
 form {
-    padding: 10em 0;
+    padding: 5em 0 10em;
     display: flex;
     align-items: center;
     justify-content: center;
