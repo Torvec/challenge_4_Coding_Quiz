@@ -1,4 +1,5 @@
-# Bootcamp-Week-04-Challenge
+# Coding Quiz
+A UC Berkley Full Stack Web Development Bootcamp Week 04 Challenge
 
 ## Description
 
@@ -12,10 +13,6 @@ Visit the GitHub pages link to see website: [Coding Quiz](https://torvec.github.
 
 ![JavaScript Quiz](./assets/img/site_screen_shot.png)
 
-## Installation
-
-N/A
-
 ## Usage
 
 This page is used for grading purposes by the UC Berkley coding bootcamp staff.
@@ -27,22 +24,12 @@ This page is used for grading purposes by the UC Berkley coding bootcamp staff.
 - Bootstrap Colors: [MDBootstrap](https://mdbootstrap.com/docs/b4/jquery/css/colors/)
 - Edward Von Schondorf
 
-## License
-
-N/A
-
-## Badges
-
-N/A
-
 ## Features
 
-- Multiple choice, timed, and scored coding quiz
-
-## How to Contribute
-
-N/A
+- Multiple choice questions
+- Timed
+- Score system
 
 ## Project Status
 
-Completed 31 May 2023
+Completed May 2023
