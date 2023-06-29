@@ -7,7 +7,7 @@ The week 04 challenge was to create a multiple choice JavaScript quiz that was t
 
 ## GitHub Pages
 
-Visit the GitHub pages link to see website: [Coding Quiz](https://torvec.github.io/challenge_4_Coding_Quiz/)
+Visit the GitHub pages link to see website: [Coding Quiz](https://torvec.github.io/m4_coding_quiz/)
 
 ## Visuals
 
